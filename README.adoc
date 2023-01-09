@@ -1,0 +1,128 @@
+= Falseador
+Caio Santesso
+:description: any
+
+Biblioteca para gerar dados por vezes brasileiros, aleatórios e verossímeis.
+
+WARNING: Biblioteca em versão alfa! Muitos módulos podem ser renomeados, mudarem de lugar e valores convertidos podem apresentar erros.
+
+:toc: auto
+
+== Utilização
+
+Falseador exporta uma propriedade para cada tipo. Esse tipo tem um ou mais métodos que geram o dado ou convertem o argumento.
+
+[source, js]
+----
+import { falseador } from '../src';
+
+console.info(falseador.nome.composto());
+// Frederico Ângelo
+
+console.info(falseador.número.romano(3_000));
+// MMM
+----
+
+== Métodos
+
+=== Número
+
+.Doc parcial do tipo Número
+[cols="1,2,2,1",stripes=even,frame=none,grid=rows]
+|===
+| Propósito| Método | Descrição | Saída
+
+|Aleatório
+|``falseador.número.entreZeroE(5)``
+|Inteiro entre 0 e 5.
+|5
+
+|Aleatório
+|``falseador.número.exclusivoEntreZeroE(5)``
+|Inteiro entre 0 e 4.
+|4
+
+|Aleatório
+|``falseador.número.entreUmE(5)``
+|Inteiro entre 1 e 5.
+|3
+
+|Aleatório
+|``falseador.número.exclusivoEntreUmE(5)``
+|Inteiro entre 1 e 4.
+|2
+
+|Conversão
+|``falseador.número.romano(5)``
+|5 convertido em número romano (``string``).
+|``'VII'``
+
+|Conversão
+|``falseador.número.porExtenso(1_101)``
+|1101 por extenso (``string``).
+|``'mil cento e um'``
+ 
+|=== 
+
+
+=== Nome
+
+.Doc parcial do tipo Nome
+[cols="1,2,2,1",stripes=hover,frame=none,grid=rows]
+|===
+| Propósito| Método | Descrição | Saída
+
+|Aleatório
+|``falseador.nome.primeiro()``
+|Primeiro nome feminino ou masculino.
+|``'Ian'``
+
+
+|Aleatório
+|``falseador.nome.primeiro('F')``
+|Primeiro nome feminino.
+|``'Simone'``
+
+|Aleatório
+|``falseador.nome.composto()``
+|Nome composto feminino ou masculino.
+|``'Ângela Ivone'``
+
+|Aleatório
+|``falseador.nome.sobrenome()``
+|Sobrenome único.
+|``'Marques'``
+
+|Aleatório
+|``falseador.nome.sobrenomes()``
+|Entre um e três sobrenomes.
+|``'Neves Freire'``
+ 
+|=== 
+
+
+=== Texto
+
+.Doc parcial do tipo Texto
+[cols="1,2,2,1",stripes=hover,frame=none,grid=rows]
+|===
+| Propósito| Método | Descrição | Saída
+
+|Aleatório
+|``falseador.nome.letra()``
+|Letra maiúscula do alfabeto brasileiro (26 letras).
+|``'A'``
+
+|Aleatório
+|``falseador.nome.letraAcentuada()``
+|Letra maiúscula do alfabeto brasileiro (26 letras + 12 acentuadas).
+|``'Í'`` 
+
+|=== 
+
+== A implementar
+* [ ] Ruas
+* [ ] Cidades
+* [ ] Estados
+* [ ] Pessoas
+* [ ] Famílias
