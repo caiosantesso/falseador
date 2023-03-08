@@ -1,10 +1,10 @@
 import { Número } from './Número';
 
 export class Texto {
-  private número = new Número();
+  readonly #número = new Número();
 
   public letra(): string {
-    const código = this.número.exclusivoEntreZeroE(26) + 65;
+    const código = this.#número.exclusivoEntreZeroE(26) + 65;
     return String.fromCharCode(código);
   }
 
@@ -49,7 +49,7 @@ export class Texto {
       'Õ',
       'Ú',
     ];
-    const índice = this.número.exclusivoEntreZeroE(letras.length);
+    const índice = this.#número.exclusivoEntreZeroE(letras.length);
     return letras[índice];
   }
 }

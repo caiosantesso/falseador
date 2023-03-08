@@ -1,7 +1,5 @@
 export declare class Documento {
-    private número;
-    private criaVetor;
-    private mod;
+    #private;
     cpf(): string;
     cnpj(): string;
 }

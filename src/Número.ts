@@ -19,37 +19,38 @@ export class Número {
     return this.entreUmE(limite, false);
   }
 
-  private dígitoRomano(dígito: number, base10: number): string {
+  #dígitoRomano(dígito: number, base10: number): string {
     if (dígito >= 1 && dígito <= 3) {
       return ['I', 'X', 'C', 'M'][base10].repeat(dígito);
     } else if (dígito === 4) {
-      return this.dígitoRomano(1, base10) + this.dígitoRomano(5, base10);
+      return this.#dígitoRomano(1, base10) + this.#dígitoRomano(5, base10);
     } else if (dígito === 5) {
       return ['V', 'L', 'D'][base10];
     } else if (dígito >= 6 && dígito <= 8) {
       return (
-        this.dígitoRomano(5, base10) + this.dígitoRomano(dígito - 5, base10)
+        this.#dígitoRomano(5, base10) + this.#dígitoRomano(dígito - 5, base10)
       );
     } else if (dígito === 9) {
-      return this.dígitoRomano(1, base10) + this.dígitoRomano(1, base10 + 1);
+      return this.#dígitoRomano(1, base10) + this.#dígitoRomano(1, base10 + 1);
     }
     return '';
   }
 
   public romano(número: number): string {
+    if (!Number.isInteger(número)) throw Error(`${número} deve ser inteiro.`);
     if (número <= 0 || número >= 4000)
-      throw Error('Número romano inválido. Escolha entre 1 e 3999.');
-    const milhar = this.dígitoRomano(Math.trunc(número / 1000), 3);
+      throw Error('Número inválido. Escolha entre 1 e 3999.');
+    const milhar = this.#dígitoRomano(Math.trunc(número / 1000), 3);
     número %= 1000;
-    const centena = this.dígitoRomano(Math.trunc(número / 100), 2);
+    const centena = this.#dígitoRomano(Math.trunc(número / 100), 2);
     número %= 100;
-    const dezena = this.dígitoRomano(Math.trunc(número / 10), 1);
+    const dezena = this.#dígitoRomano(Math.trunc(número / 10), 1);
     número %= 10;
-    const unidade = this.dígitoRomano(número, 0);
+    const unidade = this.#dígitoRomano(número, 0);
     return `${milhar}${centena}${dezena}${unidade}`;
   }
 
-  private unidades = [
+  readonly #unidades = [
     'zero',
     'um',
     'dois',
@@ -72,7 +73,7 @@ export class Número {
     'dezenove',
   ];
 
-  private dezenas = [
+  readonly #dezenas = [
     ,
     ,
     'vinte',
@@ -85,7 +86,7 @@ export class Número {
     'noventa',
   ];
 
-  private centenas = [
+  readonly #centenas = [
     ,
     'cento',
     'duzentos',
@@ -98,25 +99,25 @@ export class Número {
     'novecentos',
   ];
 
-  private dezenaPorExtenso(número: number): string {
-    if (número <= 19) return this.unidades[número];
-    const dezena = this.dezenas[Math.trunc(número / 10)];
-    const unidade = this.unidades[número % 10];
+  #dezenaPorExtenso(número: number): string {
+    if (número <= 19) return this.#unidades[número];
+    const dezena = this.#dezenas[Math.trunc(número / 10)];
+    const unidade = this.#unidades[número % 10];
     return unidade === 'zero' ? `${dezena}` : `${dezena} e ${unidade}`;
   }
 
-  private centenaPorExtenso(número: number): string {
-    const centena = this.centenas[Math.trunc(número / 100)];
-    const dezena = this.dezenaPorExtenso((número %= 100));
+  #centenaPorExtenso(número: number): string {
+    const centena = this.#centenas[Math.trunc(número / 100)];
+    const dezena = this.#dezenaPorExtenso((número %= 100));
 
     if (centena === undefined) return dezena;
     else if (dezena === 'zero') return centena === 'cento' ? 'cem' : centena;
     else return `${centena} e ${dezena}`;
   }
 
-  private milharesPorExtenso(número: number): string {
-    let milhares = this.centenaPorExtenso(Math.trunc(número / 1_000));
-    const unidades = this.centenaPorExtenso(número % 1_000);
+  #milharesPorExtenso(número: number): string {
+    let milhares = this.#centenaPorExtenso(Math.trunc(número / 1_000));
+    const unidades = this.#centenaPorExtenso(número % 1_000);
 
     if (milhares === 'zero') return unidades;
     else {
@@ -131,22 +132,23 @@ export class Número {
   }
 
   public porExtenso(número: number): string {
-    if (número < 0 || número > 999_999_999_999) throw Error();
-    if (!Number.isInteger(número)) throw Error();
+    if (!Number.isInteger(número)) throw Error(`${número} deve ser inteiro.`);
+    if (número < 0 || número > 999_999_999_999)
+      throw Error(`${número} deve estar entre 0 e 999.999.999.999.`);
 
     let resultado = '';
-    const bilhões = this.centenaPorExtenso(Math.trunc(número / 1_000_000_000));
+    const bilhões = this.#centenaPorExtenso(Math.trunc(número / 1_000_000_000));
     if (bilhões !== 'zero')
       resultado = bilhões === 'um' ? 'um bilhão' : `${bilhões} bilhões`;
 
     número %= 1_000_000_000;
-    const milhões = this.centenaPorExtenso(Math.trunc(número / 1_000_000));
+    const milhões = this.#centenaPorExtenso(Math.trunc(número / 1_000_000));
     if (milhões !== 'zero') {
       if (resultado !== '') resultado += ' ';
       resultado += milhões === 'um' ? 'um milhão' : `${milhões} milhões`;
     }
 
-    const milhares = this.milharesPorExtenso((número %= 1_000_000));
+    const milhares = this.#milharesPorExtenso((número %= 1_000_000));
     if (milhares !== 'zero' || (milhares === 'zero' && resultado === '')) {
       if (resultado !== '') resultado += ' ';
       resultado += milhares;

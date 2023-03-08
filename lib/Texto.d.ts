@@ -1,5 +1,5 @@
 export declare class Texto {
-    private número;
+    #private;
     letra(): string;
     letraAcentuada(): string;
 }

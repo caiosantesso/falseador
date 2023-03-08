@@ -10,7 +10,7 @@ WARNING: Biblioteca em versão alfa! Muitos módulos podem ser renomeados, mudar
 
 == Utilização
 
-Falseador exporta uma propriedade para cada tipo. Esse tipo tem um ou mais métodos que geram o dado ou convertem o argumento.
+Falseador exporta uma propriedade para cada categoria. Essa categoria tem um ou mais métodos que gera o dado ou converte o argumento.
 
 [source, js]
 ----
@@ -23,12 +23,21 @@ console.info(falseador.número.romano(3_000));
 // MMM
 ----
 
+Também por ser chamado em sessão _shell_.
+
+[source, shell]
+----
+falseador número porExtenso
+# mil cento e onze
+----
+
+
 == Métodos
 
 === Número
 
-.Doc parcial do tipo Número
-[cols="1,2,2,1",stripes=even,frame=none,grid=rows]
+.API parcial da categoria Número
+[cols="1,2,2,2",stripes=even,frame=none,grid=rows]
 |===
 | Propósito| Método | Descrição | Saída
 
@@ -53,13 +62,13 @@ console.info(falseador.número.romano(3_000));
 |2
 
 |Conversão
-|``falseador.número.romano(5)``
-|5 convertido em número romano (``string``).
-|``'VII'``
+|``falseador.número.romano(194)``
+|194 como número romano.
+|``'CXCIV'``
 
 |Conversão
 |``falseador.número.porExtenso(1_101)``
-|1101 por extenso (``string``).
+|1101 por extenso.
 |``'mil cento e um'``
  
 |=== 
@@ -67,8 +76,8 @@ console.info(falseador.número.romano(3_000));
 
 === Nome
 
-.Doc parcial do tipo Nome
-[cols="1,2,2,1",stripes=hover,frame=none,grid=rows]
+.API parcial da categoria Nome
+[cols="1,2,2,2",stripes=hover,frame=none,grid=rows]
 |===
 | Propósito| Método | Descrição | Saída
 
@@ -103,8 +112,8 @@ console.info(falseador.número.romano(3_000));
 
 === Texto
 
-.Doc parcial do tipo Texto
-[cols="1,2,2,1",stripes=hover,frame=none,grid=rows]
+.API parcial da categoria Texto
+[cols="1,2,2,2",stripes=hover,frame=none,grid=rows]
 |===
 | Propósito| Método | Descrição | Saída
 
@@ -120,9 +129,34 @@ console.info(falseador.número.romano(3_000));
 
 |=== 
 
+
+=== Doc
+
+.API parcial da categoria Doc
+[cols="1,2,2,2",stripes=hover,frame=none,grid=rows]
+|===
+| Propósito| Método | Descrição | Saída
+
+|Aleatório
+|``falseador.doc.cpnj()``
+|CNPJ.
+|``'20663244000161'``
+
+|Aleatório
+|``falseador.doc.cpf()``
+|CPF.
+|``'39854612015'`` 
+
+|=== 
+
+
 == A implementar
+[%interactive]
 * [ ] Ruas
 * [ ] Cidades
 * [ ] Estados
 * [ ] Pessoas
 * [ ] Famílias
+* [ ] emails
+* [ ] Telefones
+* [ ] Idades

@@ -1,20 +1,20 @@
 import { Número } from './Número';
 
 export class Documento {
-  private número = new Número();
+  readonly #número = new Número();
 
-  private criaVetor(largura: number, dígitoLimite: number) {
+  #criaVetor(largura: number, dígitoLimite: number) {
     return Array.from(Array(largura), () =>
-      this.número.entreZeroE(dígitoLimite)
+      this.#número.entreZeroE(dígitoLimite)
     );
   }
 
-  private mod(dividendo: number, divisor: number) {
+  #mod(dividendo: number, divisor: number) {
     return Math.round(dividendo - Math.floor(dividendo / divisor) * divisor);
   }
 
   public cpf() {
-    const d = this.criaVetor(9, 9);
+    const d = this.#criaVetor(9, 9);
 
     const penúltimo =
       d[8] * 2 +
@@ -26,7 +26,7 @@ export class Documento {
       d[2] * 8 +
       d[1] * 9 +
       d[0] * 10;
-    d[9] = 11 - this.mod(penúltimo, 11);
+    d[9] = 11 - this.#mod(penúltimo, 11);
     if (d[9] >= 10) d[9] = 0;
 
     const último =
@@ -40,14 +40,14 @@ export class Documento {
       d[2] * 9 +
       d[1] * 10 +
       d[0] * 11;
-    d[10] = 11 - this.mod(último, 11);
+    d[10] = 11 - this.#mod(último, 11);
     if (d[10] >= 10) d[10] = 0;
 
     return d.join('');
   }
 
   public cnpj() {
-    const d = this.criaVetor(8, 9);
+    const d = this.#criaVetor(8, 9);
     d[8] = 0;
     d[9] = 0;
     d[10] = 0;
@@ -66,7 +66,7 @@ export class Documento {
       d[2] * 3 +
       d[1] * 4 +
       d[0] * 5;
-    d[12] = 11 - this.mod(penúltimo, 11);
+    d[12] = 11 - this.#mod(penúltimo, 11);
     if (d[12] >= 10) d[12] = 0;
 
     const último =
@@ -83,7 +83,7 @@ export class Documento {
       d[2] * 4 +
       d[1] * 5 +
       d[0] * 6;
-    d[13] = 11 - this.mod(último, 11);
+    d[13] = 11 - this.#mod(último, 11);
     if (d[13] >= 10) d[13] = 0;
 
     return d.join('');

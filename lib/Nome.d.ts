@@ -1,8 +1,6 @@
 type Gênero = 'F' | 'M';
 export declare class Nome {
-    private readonly número;
-    private readonly tipo;
-    private primeiroComGênero;
+    #private;
     primeiro(gênero?: Gênero): string;
     composto(gênero?: Gênero): string;
     sobrenome(): string;

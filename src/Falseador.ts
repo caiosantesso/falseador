@@ -5,29 +5,29 @@ import { Documento } from './Documento';
 import { Texto } from './Texto';
 
 export class Falseador {
-  private readonly nomes = new Nome();
-  private readonly números = new Número();
-  private readonly tipos = new Tipo();
-  private readonly textos = new Texto();
-  private readonly documentos = new Documento();
+  readonly #categoriaNome = new Nome();
+  readonly #categoriaNúmero = new Número();
+  readonly #categoriaTipo = new Tipo();
+  readonly #categoriaTexto = new Texto();
+  readonly #categoriaDocumento = new Documento();
 
   get nome(): Nome {
-    return this.nomes;
+    return this.#categoriaNome;
   }
 
   get número(): Número {
-    return this.números;
+    return this.#categoriaNúmero;
   }
 
   get tipo(): Tipo {
-    return this.tipos;
+    return this.#categoriaTipo;
   }
 
   get texto(): Texto {
-    return this.textos;
+    return this.#categoriaTexto;
   }
 
   get doc(): Documento {
-    return this.documentos;
+    return this.#categoriaDocumento;
   }
 }

@@ -576,7 +576,7 @@ export class ListaDeNomes {
     'Amarildo',
     'Amaro',
     'Amaurí',
-    'Americo',
+    'Américo',
     'Amílton',
     'Ananias',
     'Anderson',
