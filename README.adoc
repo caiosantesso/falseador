@@ -23,15 +23,6 @@ console.info(falseador.número.romano(3_000));
 // MMM
 ----
 
-Também por ser chamado em sessão _shell_.
-
-[source, shell]
-----
-falseador número porExtenso
-# mil cento e onze
-----
-
-
 == Métodos
 
 === Número
