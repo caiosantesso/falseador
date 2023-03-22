@@ -4,11 +4,7 @@ import { Tipo } from './Tipo';
 import { Documento } from './Documento';
 import { Texto } from './Texto';
 export declare class Falseador {
-    private readonly categoriaNome;
-    private readonly categoriaNúmero;
-    private readonly categoriaTipo;
-    private readonly categoriaTexto;
-    private readonly categoriaDocumento;
+    #private;
     get nome(): Nome;
     get número(): Número;
     get tipo(): Tipo;

@@ -75,9 +75,13 @@ export class LinhaDeComando {
 
     const arg = /^-?\d+$/.test(argumento) ? Number(argumento) : argumento;
 
-    const resultado = (
-      categoria[idDoMétodo] as (arg?: string | number) => void
-    )(arg);
-    console.log(resultado);
+    try {
+      const resultado = (
+        categoria[idDoMétodo] as (arg?: string | number) => void
+      )(arg);
+      console.info(resultado);
+    } catch (erro) {
+      console.error((erro as Error).message);
+    }
   }
 }

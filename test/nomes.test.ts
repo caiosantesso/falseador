@@ -1,10 +1,11 @@
 import { falseador } from '../src';
 import { ListaDeNomes } from '../src/ListaDeNomes';
 
+const todosOsNomes = [...ListaDeNomes.M, ...ListaDeNomes.F];
+
 test('devolve primeiro nome, qualquer gênero', () => {
   const nome = falseador.nome.primeiro();
-  const nomes = [...ListaDeNomes.M, ...ListaDeNomes.F];
-  expect(nomes).toEqual(expect.arrayContaining([nome]));
+  expect(todosOsNomes).toEqual(expect.arrayContaining([nome]));
 });
 
 test('devolve primeiro nome, masculino', () => {
@@ -19,9 +20,9 @@ test('devolve primeiro nome, feminino', () => {
 
 test('devolve nome composto, qualquer gênero', () => {
   const nome = falseador.nome.composto();
-  const nomes = [...ListaDeNomes.M, ...ListaDeNomes.F];
   const nomesDivididos = nome.split(' ');
-  expect(nomes).toEqual(expect.arrayContaining(nomesDivididos));
+
+  expect(todosOsNomes).toEqual(expect.arrayContaining(nomesDivididos));
   expect(nomesDivididos.length).toBe(2);
 });
 
@@ -49,7 +50,7 @@ test('devolve sobrenomes, entre 1 e 3', () => {
   const sobrenomes = falseador.nome.sobrenomes();
   const partes = [...sobrenomes.matchAll(/^[A-Z]| [A-Z]/g)];
 
-  expect(typeof sobrenomes).toBe('string')
+  expect(typeof sobrenomes).toBe('string');
   expect(partes.length).toBeGreaterThanOrEqual(1);
   expect(partes.length).toBeLessThanOrEqual(3);
 });
@@ -60,4 +61,17 @@ test('devolve 2 sobrenomes', () => {
 
   expect(typeof sobrenomes).toBe('string');
   expect(partes.length).toEqual(2);
+});
+
+test('devolve nome completo', () => {
+  const nomeCompleto = falseador.nome.completo();
+
+  expect(typeof nomeCompleto).toBe('string');
+
+  const nomesDivididos = nomeCompleto.split(' ');
+  expect(nomesDivididos.length).toBeGreaterThanOrEqual(2);
+  expect(todosOsNomes).toEqual(expect.arrayContaining([nomesDivididos[0]]));
+  expect(ListaDeNomes.sobrenomes).toEqual(
+    expect.arrayContaining([nomesDivididos[nomesDivididos.length - 1]])
+  );
 });

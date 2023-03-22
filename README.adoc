@@ -149,6 +149,9 @@ falseador número porExtenso
 
 |=== 
 
+=== Sujeito à mudanças
+
+Métdos da categoria Tipo
 
 == A implementar
 [%interactive]
@@ -160,3 +163,4 @@ falseador número porExtenso
 * [ ] emails
 * [ ] Telefones
 * [ ] Idades
+* [ ] Validar tipagem dos argumentos

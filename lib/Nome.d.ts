@@ -5,5 +5,6 @@ export declare class Nome {
     composto(gênero?: Gênero): string;
     sobrenome(): string;
     sobrenomes(quantidade?: number): string;
+    completo(gênero?: Gênero): string;
 }
 export {};

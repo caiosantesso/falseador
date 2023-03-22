@@ -10,28 +10,30 @@ export class Nome {
 
   #primeiroComGênero(gênero: Gênero): string {
     const nomes = ListaDeNomes[gênero];
-    const índice = this.#número.entreZeroE(nomes.length);
+    const índice = this.#número.exclusivoEntreZeroE(nomes.length);
     return nomes[índice];
   }
 
-  public primeiro(gênero?: Gênero): string {
+  #gêneroVálido(gênero?: Gênero): Gênero {
     gênero = gênero?.toUpperCase() as Gênero;
-    if (gênero === 'F') return this.#primeiroComGênero(gênero);
-    else if (gênero === 'M') return this.#primeiroComGênero(gênero);
-    return this.#tipo.booleano()
-      ? this.#primeiroComGênero('F')
-      : this.#primeiroComGênero('M');
+
+    return gênero === 'F' || gênero === 'M'
+      ? gênero
+      : this.#tipo.entre<Gênero>(['F', 'M']);
+  }
+
+  public primeiro(gênero?: Gênero): string {
+    gênero = this.#gêneroVálido(gênero);
+
+    return this.#primeiroComGênero(gênero);
   }
 
   public composto(gênero?: Gênero): string {
-    gênero = gênero?.toUpperCase() as Gênero;
-    if (gênero)
-      return (
-        this.#primeiroComGênero(gênero) + ' ' + this.#primeiroComGênero(gênero)
-      );
-    return this.#tipo.booleano()
-      ? this.#primeiroComGênero('F') + ' ' + this.#primeiroComGênero('F')
-      : this.#primeiroComGênero('M') + ' ' + this.#primeiroComGênero('M');
+    gênero = this.#gêneroVálido(gênero);
+
+    return (
+      this.#primeiroComGênero(gênero) + ' ' + this.#primeiroComGênero(gênero)
+    );
   }
 
   public sobrenome(): string {
@@ -49,5 +51,15 @@ export class Nome {
       sobrenomes.push(this.sobrenome());
     }
     return sobrenomes.join(' ');
+  }
+
+  public completo(gênero?: Gênero): string {
+    gênero = this.#gêneroVálido(gênero);
+
+    const nome = this.#tipo.booleano()
+      ? this.#primeiroComGênero(gênero)
+      : this.composto(gênero);
+
+    return `${nome} ${this.sobrenomes()}`;
   }
 }

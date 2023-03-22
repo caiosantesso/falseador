@@ -132,7 +132,7 @@ export class Número {
   }
 
   public porExtenso(número: number): string {
-    if (!Number.isInteger(número)) throw Error(`${número} deve ser inteiro.`);
+    if (!Number.isInteger(número)) throw Error(`${número} deve ser número inteiro.`);
     if (número < 0 || número > 999_999_999_999)
       throw Error(`${número} deve estar entre 0 e 999.999.999.999.`);
 

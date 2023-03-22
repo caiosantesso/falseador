@@ -1,7 +1,7 @@
 import { Falseador } from './Falseador';
 export declare class LinhaDeComando {
     #private;
-    private falseador;
+    private readonly falseador;
     constructor(falseador: Falseador);
     execute(): void;
 }

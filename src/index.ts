@@ -4,7 +4,6 @@ import { LinhaDeComando } from './LinhaDeComando';
 
 export const falseador = new Falseador();
 
-
 const foiExecutadoDoTerminal = require.main === module;
 
 if (foiExecutadoDoTerminal) {
