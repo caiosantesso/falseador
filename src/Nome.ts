@@ -7,6 +7,31 @@ type Gênero = 'F' | 'M';
 export class Nome {
   readonly #número = new Número();
   readonly #tipo = new Tipo();
+  readonly #agnomes = new Set([
+    'Júnior',
+    'Junior',
+    'Filho',
+    'Segundo',
+    'Neto',
+    'Terceiro',
+    'Irmão',
+    'Sobrinho',
+    'Filha',
+    'Segunda',
+    'Neta',
+    'Terceira',
+    'Irmã',
+    'Sobrinha',
+  ]);
+  readonly #preposições = new Set([
+    'dos',
+    'das',
+    'do',
+    'da',
+    'de',
+    'del',
+    'di',
+  ]);
 
   #primeiroComGênero(gênero: Gênero): string {
     const nomes = ListaDeNomes[gênero];
@@ -61,5 +86,65 @@ export class Nome {
       : this.composto(gênero);
 
     return `${nome} ${this.sobrenomes()}`;
+  }
+
+  public abreviado(nomeCompleto: string): string {
+    if (typeof nomeCompleto !== 'string')
+      throw new Error('nome deve ser string.');
+
+    const nomes = nomeCompleto
+      .trim()
+      .split(' ')
+      .filter((pedaço) => !this.#preposições.has(pedaço));
+
+    if (nomes.length <= 2) return nomeCompleto;
+
+    const temAgnome = this.#agnomes.has(nomes[nomes.length - 1]);
+    if (temAgnome && nomes.length === 3) {
+      return nomeCompleto;
+    }
+
+    const primeiro = nomes.shift();
+    const agnome = temAgnome ? this.agnome(nomes) : '';
+    const último = nomes.pop() + agnome;
+    const abreviaturas = nomes.map((nome) => nome[0] + '.').join(' ');
+
+    return `${primeiro} ${abreviaturas} ${último}`;
+  }
+
+  private agnome(nomes: string[]): string {
+    let agnome = nomes.pop();
+    agnome = agnome === 'Júnior' || agnome === 'Junior' ? 'Jr.' : agnome;
+    return ` ${agnome}`;
+  }
+
+  public completoVálido(nomeCompleto: string): boolean {
+    if (typeof nomeCompleto !== 'string') return false;
+
+    const nomes = nomeCompleto.split(' ');
+    if (!this.éNomeVálido(nomes[0]) || nomes.length <= 1) return false;
+
+    let últimaFoiPreposição = false;
+    for (let i = 1; i < nomes.length; i++) {
+      const nome = nomes[i];
+
+      if (this.éPreposição(nome)) {
+        if (últimaFoiPreposição) return false;
+        últimaFoiPreposição = true;
+      } else {
+        if (!this.éNomeVálido(nome)) return false;
+        últimaFoiPreposição = false;
+      }
+    }
+
+    return !últimaFoiPreposição;
+  }
+
+  private éNomeVálido(nome: string): boolean {
+    return /^[a-zàáâãçéêíóôõú']{3,}$/i.test(nome);
+  }
+
+  private éPreposição(nome: string): boolean {
+    return this.#preposições.has(nome.toLowerCase());
   }
 }

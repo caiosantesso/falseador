@@ -98,6 +98,10 @@ describe('romano()', () => {
     expect(() => falseador.número.romano(0)).toThrow();
   });
 
+  test('lança erro pois número é real', () => {
+    expect(() => falseador.número.romano(0.1)).toThrow();
+  });
+
   test('8', () => {
     const número = falseador.número.romano(8);
     expect(número).toBe('VIII');
@@ -199,6 +203,12 @@ describe('porExtenso()', () => {
       'novecentos e noventa e nove mil',
       'novecentos e noventa e nove',
     ];
+    expect(número).toBe(classes.join(' '));
+  });
+
+  test('1.000.000', () => {
+    const número = falseador.número.porExtenso(1_000_000);
+    const classes = ['um milhão'];
     expect(número).toBe(classes.join(' '));
   });
 

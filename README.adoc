@@ -4,6 +4,8 @@ Caio Santesso
 
 Biblioteca para gerar dados por vezes brasileiros, aleatórios e verossímeis.
 
+Tem como propósito criar dados para massa de testes com os métodos de categoria 'aleatório' e transformar tais dados com os de categoria 'conversão'. Apesar da intenção de verossimilhança, não tem por pretensão gerar ou converter dados indubitavelmente válidos.
+
 WARNING: Biblioteca em versão alfa! Muitos módulos podem ser renomeados, mudarem de lugar e valores convertidos podem apresentar erros.
 
 :toc: auto
@@ -97,7 +99,17 @@ console.info(falseador.número.romano(3_000));
 |``falseador.nome.sobrenomes()``
 |Entre um e três sobrenomes.
 |``'Neves Freire'``
- 
+
+|Aleatório
+|``falseador.nome.completo()``
+|Nome simples ou composto acompanhado de um a três sobrenomes.
+|``'Alexandra Simone das Neves de Abreu'``
+
+|Conversão
+|``falseador.nome.abreviado()``
+|Abrevia nomes do meio, remove preposições e mantém agnomes.
+|``'Caio V. S. Santesso'``
+
 |=== 
 
 
@@ -145,6 +157,7 @@ console.info(falseador.número.romano(3_000));
 Métdos da categoria Tipo
 
 == A implementar
+
 [%interactive]
 * [ ] Ruas
 * [ ] Cidades
@@ -154,4 +167,5 @@ Métdos da categoria Tipo
 * [ ] emails
 * [ ] Telefones
 * [ ] Idades
+* [ ] Datas
 * [ ] Validar tipagem dos argumentos

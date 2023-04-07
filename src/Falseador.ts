@@ -3,6 +3,7 @@ import { Nome } from './Nome';
 import { Tipo } from './Tipo';
 import { Documento } from './Documento';
 import { Texto } from './Texto';
+import { Pessoa } from './Pessoa';
 
 export class Falseador {
   readonly #categoriaNome = new Nome();
@@ -10,6 +11,7 @@ export class Falseador {
   readonly #categoriaTipo = new Tipo();
   readonly #categoriaTexto = new Texto();
   readonly #categoriaDocumento = new Documento();
+  readonly #categoriaPessoa = new Pessoa();
 
   get nome(): Nome {
     return this.#categoriaNome;
@@ -29,5 +31,9 @@ export class Falseador {
 
   get doc(): Documento {
     return this.#categoriaDocumento;
+  }
+
+  get pessoa(): Pessoa {
+    return this.#categoriaPessoa;
   }
 }

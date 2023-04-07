@@ -52,4 +52,44 @@ export class Texto {
     const índice = this.#número.exclusivoEntreZeroE(letras.length);
     return letras[índice];
   }
+
+  public removeAcentos(palavra: string): string {
+    if (typeof palavra !== 'string')
+      throw new Error('palavra deve ser string.');
+
+    const letrasAcentuadas: { [key: string]: string } = {
+      À: 'A',
+      Á: 'A',
+      Â: 'A',
+      Ã: 'A',
+      Ç: 'C',
+      É: 'E',
+      Ê: 'E',
+      Í: 'I',
+      Ó: 'O',
+      Ô: 'O',
+      Õ: 'O',
+      Ú: 'U',
+      à: 'a',
+      á: 'a',
+      â: 'a',
+      ã: 'a',
+      ç: 'c',
+      é: 'e',
+      ê: 'e',
+      í: 'i',
+      ó: 'o',
+      ô: 'o',
+      õ: 'o',
+      ú: 'u',
+    };
+
+    const palavraSemAcentuação = [...palavra]
+      .map((letra) => {
+        return letrasAcentuadas[letra] ?? letra;
+      })
+      .join('');
+
+    return palavraSemAcentuação;
+  }
 }

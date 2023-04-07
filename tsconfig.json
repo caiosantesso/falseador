@@ -29,5 +29,5 @@
 
     "pretty": true
   },
-  "include": ["typings/**/*", "src/**/*"]
+  "include": ["typings/**/*", "src/**/*", "i.ts"]
 }

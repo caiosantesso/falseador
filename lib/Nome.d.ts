@@ -6,5 +6,10 @@ export declare class Nome {
     sobrenome(): string;
     sobrenomes(quantidade?: number): string;
     completo(gênero?: Gênero): string;
+    abreviado(nomeCompleto: string): string;
+    private agnome;
+    completoVálido(nomeCompleto: string): boolean;
+    private éNomeVálido;
+    private éPreposição;
 }
 export {};

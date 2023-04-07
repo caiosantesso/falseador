@@ -1790,7 +1790,6 @@ export class ListaDeNomes {
     'Santana',
     'Santiago',
     'Santos',
-    'Santos',
     'Saraiva',
     'Sardinha',
     'Sarmento',
