@@ -1,4 +1,7 @@
+.idea
 node_modules
-coverage
-docs
-i.ts
+packages/lib/node_modules
+packages/lib/coverage
+packages/lib/docs
+packages/cli/node_modules
+packages/cli/coverage

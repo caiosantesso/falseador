@@ -11,6 +11,7 @@ module.exports = {
     sourceType: 'module',
   },
   plugins: ['@typescript-eslint'],
+  ignorePatterns: ['**/out/**'],
   rules: {
     'no-sparse-arrays': 'off',
   },

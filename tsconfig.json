@@ -1,19 +1,16 @@
 {
   "compilerOptions": {
-    "target": "ES2015",
+    "target": "ES2020",
     "module": "commonjs",
     "moduleResolution": "node",
-    "lib": ["es2022"],
-
+    "lib": ["ES2022"],
     "rootDir": "src",
-    "outDir": "lib",
-
+    "outDir": "out",
     "strict": true,
     "alwaysStrict": true,
     "strictFunctionTypes": true,
     "strictNullChecks": true,
     "strictPropertyInitialization": true,
-
     "forceConsistentCasingInFileNames": true,
     "noImplicitAny": true,
     "noImplicitReturns": true,
@@ -21,13 +18,10 @@
     "noFallthroughCasesInSwitch": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "downlevelIteration": true,
     "declaration": true,
-
-    "pretty": true
+    "pretty": true,
   },
-  "include": ["typings/**/*", "src/**/*", "i.ts"]
 }
