@@ -1,4 +1,4 @@
-import { ListaDeNomes } from '../../src/ListaDeNomes';
+import { ListaDeNomes } from '../../src/coleções/ListaDeNomes';
 
 const padrãoNome = /^[A-ZÁÂÊÉÍ][a-zàáâãçéêíóôõú]{2,}$/;
 const padrãoSobrenome =

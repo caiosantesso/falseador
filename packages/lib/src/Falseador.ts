@@ -1,11 +1,11 @@
-import { Número } from './Número';
-import { Nome } from './Nome';
-import { Tipo } from './Tipo';
-import { Documento } from './Documento';
-import { Texto } from './Texto';
-import { Pessoa } from './Pessoa';
-import { Data } from './Data';
-import { Local } from './Local';
+import { Número } from './módulos/Número';
+import { Nome } from './módulos/Nome';
+import { Tipo } from './módulos/Tipo';
+import { Documento } from './módulos/Documento';
+import { Texto } from './módulos/Texto';
+import { Pessoa } from './módulos/Pessoa';
+import { Data } from './módulos/Data';
+import { Local } from './módulos/Local';
 
 export class Falseador {
   readonly #categoriaNome = new Nome();

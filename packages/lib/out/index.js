@@ -1,7 +1,2 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.UF = exports.falseador = void 0;
-const Falseador_1 = require("./Falseador");
-const Local_1 = require("./Local");
-Object.defineProperty(exports, "UF", { enumerable: true, get: function () { return Local_1.UF; } });
-exports.falseador = new Falseador_1.Falseador();
+import{Falseador}from"./Falseador.js";import{ListaDeLocais}from"./coleções/ListaDeLocais.js";import{Validações}from"./integridade/Validações.js";import{Exceção}from"./integridade/Exceção.js";export const falseador=new Falseador;export const util={ufs:ListaDeLocais.ufs,númeroInteiroPositivoOuLançaErro:Validações.númeroInteiroPositivo,númeroInteiroNãoNegativoOuLançaErro:Validações.númeroInteiroNãoNegativo,númeroInteiroOuLançaErro:Validações.númeroInteiro,Exceção:Exceção};
+//# sourceMappingURL=index.js.map

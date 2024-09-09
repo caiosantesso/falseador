@@ -13,7 +13,7 @@ test.each`
   ${'Heloísa da dos Oliveira'} | ${'falso, duas preposições seguidas'}
   ${'Ana dos'}                 | ${'falso, termina em preposição'}
 `('$descrição', ({ atual }) => {
-  expect(nome.completoVálido(atual)).toBe(false);
+  expect(nome.éNomeCompletoVálido(atual)).toBe(false);
 });
 
 test.each`
@@ -23,5 +23,5 @@ test.each`
   ${"Mariana Sant'Anna"}           | ${'verdadeiro, com apóstrofe'}
   ${'Eunice Borba Santos'}         | ${'verdadeiro, sem preposições'}
 `('$descrição', ({ atual }) => {
-  expect(nome.completoVálido(atual)).toBe(true);
+  expect(nome.éNomeCompletoVálido(atual)).toBe(true);
 });

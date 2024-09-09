@@ -1,42 +1,68 @@
-import { falseador } from 'falseador-lib';
+import { MocksPadrão } from './MocksPadrão';
+
+const mocks = new MocksPadrão();
 
 const programa = '../src/index';
+const comando = ['', '', 'local'];
+
+beforeEach(jest.resetModules);
 
 describe('comando Local', () => {
-  const info = jest.spyOn(console, 'info');
-  const expRegular = /^[\p{sc=Latin} ]{3,} - \p{sc=Latin}{2}$/u;
-  const comando = ['', '', 'local'];
-
-  beforeEach(() => {
-    jest.resetModules();
-  });
+  const padrãoCidadeUf = /^[\p{sc=Latin} ]{3,} - \p{sc=Latin}{2}$/u;
 
   test('subcomando padrão', async () => {
     process.argv = comando;
     await import(programa);
 
-    expect(info.mock.lastCall?.[0]).toMatch(expRegular);
+    expect(mocks.textoDaÚltimaSaída()).toMatch(padrãoCidadeUf);
   });
 
   test('comando abreviado', async () => {
     process.argv = ['', '', 'l'];
     await import(programa);
 
-    expect(info.mock.lastCall?.[0]).toMatch(expRegular);
+    expect(mocks.textoDaÚltimaSaída()).toMatch(padrãoCidadeUf);
   });
 
-  test('subcomando cidade', async () => {
-    process.argv = [...comando, 'cidade'];
-    await import(programa);
+  describe('subcomando cidade', () => {
+    const subcomando = 'cidade';
 
-    expect(info.mock.lastCall?.[0]).toMatch(expRegular);
-  });
+    test('sem argumento, sucesso', async () => {
+      process.argv = [...comando, subcomando];
+      await import(programa);
 
-  test('subcomando cidade sem sigla', async () => {
-    process.argv = [...comando, 'cidade', '--sem-sigla'];
-    await import(programa);
+      expect(mocks.textoDaÚltimaSaída()).toMatch(padrãoCidadeUf);
+    });
 
-    const saída = falseador.texto.removeAcentos(info.mock.lastCall?.[0]);
-    expect(saída).toMatch(/^[\p{sc=Latin} /-]{3,}$/u);
+    test('[uf] válido', async () => {
+      process.argv = [...comando, subcomando, 'DF'];
+      await import(programa);
+
+      expect(mocks.textoDaÚltimaSaída()).toMatch(padrãoCidadeUf);
+    });
+
+    test('[uf] inválido', async () => {
+      const argumento = 'Z';
+      process.argv = [...comando, subcomando, argumento];
+      await import(programa);
+
+      mocks.espereArgumentoComVerificadorInválido(argumento);
+    });
+
+    test('argumentos demasiados', async () => {
+      process.argv = [...comando, subcomando, 'DF', 'AM'];
+      await import(programa);
+
+      mocks.espereArgumentosDemasiados(subcomando);
+    });
+
+    test('--sem-uf', async () => {
+      process.argv = [...comando, 'cidade', '--sem-uf'];
+      await import(programa);
+
+      const saída = mocks.textoDaÚltimaSaída();
+      expect(saída).toMatch(/^[\p{sc=Latin} ]{3,}$/u);
+      expect(saída).not.toMatch(/^-+$/);
+    });
   });
 });

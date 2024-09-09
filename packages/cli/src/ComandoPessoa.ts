@@ -1,5 +1,7 @@
-import { Argument, Command, Option } from 'commander';
-import { falseador, Gênero, UF } from 'falseador-lib';
+import { Option } from 'commander';
+import { falseador, type Gênero, type UFSigla } from 'falseador-lib';
+
+import { gênero } from './Utilitários';
 import { Comando } from './Comando';
 
 type Pessoa = {
@@ -9,71 +11,85 @@ type Pessoa = {
   email: string;
   cpf: string;
   cidade: string;
-  estado: UF;
+  estado: UFSigla;
 };
 
-export class CommandoPessoa implements Comando {
-  readonly #argGênero = new Argument('[gênero]', 'F, M ou nenhum.').choices([
-    'F',
-    'f',
-    'm',
-    'M',
-  ]);
+export class ComandoPessoa extends Comando {
+  public constructor() {
+    super('pessoa');
 
-  public obtenha(): Command {
-    return new Command('pessoa')
+    super
       .description('Gera dados pessoais.')
       .alias('p')
-      .addCommand(this.completa(), { isDefault: true })
-      .addCommand(this.email());
+      .addCommand(this.subcomandoCompleta(), { isDefault: true })
+      .addCommand(this.subcomandoEmail());
   }
 
-  private email() {
-    return new Command('email')
+  private subcomandoEmail() {
+    return new Comando('email')
       .description('e-mail pessoal.')
       .argument('[nome]', 'Nome a derivar para endereço de e-mail.')
       .action((nome) => {
-        console.info(falseador.pessoa.email(nome));
+        process.stdout.write(falseador.pessoa.email(nome));
       });
   }
 
-  private completa() {
+  private subcomandoCompleta() {
     const { local, data, doc, pessoa: ps, nome: nm } = falseador;
 
-    return new Command('completa')
-      .description('Dados pessoais.')
-      .addArgument(this.#argGênero)
-      .addOption(new Option('--json', 'exibe como JSON.').conflicts('tabela'))
+    return new Comando('completa')
+      .description(
+        'Dados pessoais: nome, nascimento, idade, cpf, email, cidade e UF.',
+      )
+      .addArgument(gênero)
+      .addOption(
+        new Option('--json', 'exibe como JSON (padrão).').conflicts('tabela'),
+      )
       .option('--tabela', 'exibe como tabela.')
       .action(
         (gênero: Gênero, opções: { tabela?: boolean; json?: boolean }) => {
           const nome = nm.completo(gênero);
           const ddn = data.entrePeríodoEmAnos(new Date(), -100, -18);
-          const idade = Math.floor(
-            (new Date().getTime() - ddn.getTime()) / 3.15576e10,
-          );
+          const nascimento = this.#removaHoras(ddn);
+          const idade = this.#calculeIdade(ddn);
+          const cpf = doc.cpf();
+          const email = ps.email(nome);
           const [cidade, estado] = local.cidade();
 
           const pessoa: Pessoa = {
             nome,
-            nascimento: ddn.toISOString().split('T')[0],
+            nascimento,
             idade,
-            cpf: doc.cpf(),
-            email: ps.email(nome),
+            cpf,
+            email,
             cidade,
             estado,
           };
 
           let resultado = '';
-          if (opções?.tabela) {
-            Object.entries(pessoa).forEach(([atributo, valor]) => {
-              resultado += atributo.padEnd(20) + valor + '\n';
-            });
-            resultado = resultado.substring(0, resultado.length - 1);
-          } else resultado = JSON.stringify(pessoa);
 
-          console.info(resultado);
+          if (opções?.tabela) resultado = this.#monteTabela(pessoa);
+          else resultado = JSON.stringify(pessoa);
+
+          process.stdout.write(resultado);
         },
       );
+  }
+
+  #monteTabela(pessoa: Pessoa) {
+    let tabela = '';
+    Object.entries(pessoa).forEach(([atributo, valor]) => {
+      tabela += atributo.padEnd(20) + valor + '\n';
+    });
+    return tabela.substring(0, tabela.length - 1);
+  }
+
+  #removaHoras(data: Date) {
+    return data.toISOString().split('T')[0];
+  }
+
+  #calculeIdade(data: Date) {
+    const hoje = new Date().getTime();
+    return Math.floor((hoje - data.getTime()) / 3.15576e10);
   }
 }

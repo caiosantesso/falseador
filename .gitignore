@@ -1,4 +1,5 @@
 .idea
+falseador.iml
 node_modules
 packages/lib/node_modules
 packages/lib/coverage
