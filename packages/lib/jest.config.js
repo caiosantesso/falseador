@@ -1,5 +1,5 @@
 /** @type {import('ts-jest').JestConfigWithTsJest} */
-module.exports = {
+export default {
   testEnvironment: 'node',
   coveragePathIgnorePatterns: ['./src/index.ts'],
   setupFiles: ['../../jest.setup.ts'],

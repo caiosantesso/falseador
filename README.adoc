@@ -1,0 +1,28 @@
+= Falseador
+Caio Santesso
+:description: any
+
+Monorepo contendo a biblioteca para gerar massa de teste `packages/lib` e programa CLI `packages/cli` com a mesma finalidade.
+
+Cada projeto tem seu próprio `README`.
+
+WARNING: Pacotes em versão alfa!
+Muitos módulos/comandos podem ser renomeados, mudarem de lugar e valores convertidos podem apresentar erros.
+
+:toc: auto
+
+Projeto com identificadores em português para facilitar a aprendizagem de programadores iniciantes.
+
+== CLI
+
+=== Execução local
+
+[source,shell]
+----
+npm run cli -- --help
+----
+
+== A implementar
+
+[%interactive]
+* [ ] Novo projeto para plugin no Firefox.

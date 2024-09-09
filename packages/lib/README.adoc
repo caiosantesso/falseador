@@ -4,17 +4,20 @@ Caio Santesso
 
 Biblioteca para gerar dados por vezes brasileiros, aleatórios e verossímeis.
 
-Tem como propósito criar dados para massa de testes com os métodos de categoria 'aleatório' e transformar tais dados com os de categoria 'conversão'. Apesar da intenção de verossimilhança, não tem por pretensão gerar ou converter dados indubitavelmente válidos.
+Tem como propósito criar dados para massa de testes com os métodos de categoria 'aleatório' e transformar tais dados com os de categoria 'conversão'.
+Apesar da intenção de verossimilhança, não tem por pretensão gerar ou converter dados indubitavelmente válidos.
 
-WARNING: Biblioteca em versão alfa! Muitos módulos podem ser renomeados, mudarem de lugar e valores convertidos podem apresentar erros.
+WARNING: Biblioteca em versão alfa!
+Muitos módulos podem ser renomeados, mudarem de lugar e valores convertidos podem apresentar erros.
 
 :toc: auto
 
 == Utilização
 
-Falseador exporta uma propriedade para cada categoria. Essa categoria tem um ou mais métodos que gera o dado ou converte o argumento.
+Falseador exporta uma propriedade para cada categoria.
+Essa categoria tem um ou mais métodos que gera o dado ou converte o argumento.
 
-[source, js]
+[source,js]
 ----
 import { falseador } from '../src';
 
@@ -63,11 +66,14 @@ console.info(falseador.número.romano(3_000));
 |``falseador.número.porExtenso(1_101)``
 |1101 por extenso.
 |``'mil cento e um'``
- 
+
 |=== 
 
-
 === Nome
+
+Métodos contendo nomes os geram com gênero aleatório.
+Especifique `F` ou `f` para feminino e `M` ou `m` para masculino.
+Caso argumento seja inválido, o gênero será aleatório.
 
 .API parcial da categoria Nome
 [cols="1,2,2,2",stripes=hover,frame=none,grid=rows]
@@ -106,12 +112,11 @@ console.info(falseador.número.romano(3_000));
 |``'Alexandra Simone das Neves de Abreu'``
 
 |Conversão
-|``falseador.nome.abreviado()``
+|``falseador.nome.abreviado('Lélia Olga dos Santos Gonzalez Filha')``
 |Abrevia nomes do meio, remove preposições e mantém agnomes.
-|``'Caio V. S. Santesso'``
+|``'Lélia O. S. Gonzalez Filha'``
 
 |=== 
-
 
 === Texto
 
@@ -128,10 +133,9 @@ console.info(falseador.número.romano(3_000));
 |Aleatório
 |``falseador.nome.letraAcentuada()``
 |Letra maiúscula do alfabeto brasileiro (26 letras + 12 acentuadas).
-|``'Í'`` 
+|``'Í'``
 
 |=== 
-
 
 === Doc
 
@@ -148,9 +152,23 @@ console.info(falseador.número.romano(3_000));
 |Aleatório
 |``falseador.doc.cpf()``
 |CPF.
-|``'39854612015'`` 
+|``'39854612015'``
 
-|=== 
+|===
+
+=== Local
+
+.API parcial da categoria Local
+[cols="1,2,2,2",stripes=hover,frame=none,grid=rows]
+|===
+| Propósito| Método | Descrição | Saída
+
+|Aleatório
+|``falseador.local.cidade()``
+|Cidade e UF.
+|``['Extrema', 'MG']``
+
+|===
 
 === Sujeito à mudanças
 
@@ -159,12 +177,12 @@ Métdos da categoria Tipo
 == A implementar
 
 [%interactive]
+* [ ] Parâmetro `sobrenomePrimeiro: boolean` para `Nome#abreviado`: 'Luxemburgo, Silvia D. M.'
+* [ ] Doc formatar CPF e CNPJ.
 * [ ] Ruas
-* [ ] Cidades
 * [ ] Estados
 * [ ] Pessoas
 * [ ] Famílias
-* [ ] emails
 * [ ] Telefones
 * [ ] Idades
 * [ ] Datas

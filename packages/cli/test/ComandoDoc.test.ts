@@ -1,8 +1,9 @@
-import { falseador } from 'falseador-lib';
+import { MocksPadrão } from './MocksPadrão';
+
+const mocks = new MocksPadrão();
 
 const programa = '../src/index';
 const comando = ['', '', 'doc'];
-const info = jest.spyOn(console, 'info');
 
 describe('comando Doc', () => {
   beforeEach(() => {
@@ -13,21 +14,42 @@ describe('comando Doc', () => {
     process.argv = ['', '', 'd', 'cpf'];
     await import(programa);
 
-    expect(info.mock.lastCall?.[0]).toMatch(/^\d{11}$/);
+    expect(mocks.textoDaÚltimaSaída()).toMatch(/^\d{11}$/);
   });
 
-  test('subcomando cpf', async () => {
-    process.argv = [...comando, 'cpf'];
-    await import(programa);
+  describe('subcomando cpf', () => {
+    const subcomando = 'cpf';
 
-    expect(info.mock.lastCall?.[0]).toMatch(/^\d{11}$/);
+    test('sem argumentos', async () => {
+      process.argv = [...comando, subcomando];
+      await import(programa);
+
+      expect(mocks.textoDaÚltimaSaída()).toMatch(/^\d{11}$/);
+    });
+
+    test('com argumento, erro', async () => {
+      process.argv = [...comando, subcomando, 'Z'];
+      await import(programa);
+
+      mocks.espereArgumentosDemasiados(subcomando);
+    });
   });
 
-  test('subcomando cnpj', async () => {
-    process.argv = [...comando, 'cnpj'];
-    await import(programa);
+  describe('subcomando cnpj', () => {
+    const subcomando = 'cnpj';
+    test('sem argumentos', async () => {
+      process.argv = [...comando, subcomando];
+      await import(programa);
 
-    const saída = falseador.texto.removeAcentos(info.mock.lastCall?.[0]);
-    expect(saída).toMatch(/^\d{14}$/);
+      const saída = mocks.textoDaÚltimaSaída();
+      expect(saída).toMatch(/^\d{14}$/);
+    });
+
+    test('com argumento, erro', async () => {
+      process.argv = [...comando, subcomando, 'Z'];
+      await import(programa);
+
+      mocks.espereArgumentosDemasiados(subcomando);
+    });
   });
 });

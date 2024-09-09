@@ -1,23 +1,3 @@
 #!/usr/bin/env node
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const commander_1 = require("commander");
-const ComandoNome_1 = require("./ComandoNome");
-const ComandoDoc_1 = require("./ComandoDoc");
-const ComandoPessoa_1 = require("./ComandoPessoa");
-const ComandoLocal_1 = require("./ComandoLocal");
-const programa = new commander_1.Command();
-programa.configureOutput({
-    outputError: (str, write) => write(`\x1b[31m${str}\x1b[0m`),
-});
-programa
-    .name('falseador')
-    .description('Gerador de dados por vezes brasileiros, aleatórios e verossímeis.')
-    .version('0.0.1');
-[
-    new ComandoNome_1.ComandoNome(),
-    new ComandoDoc_1.ComandoDoc(),
-    new ComandoPessoa_1.CommandoPessoa(),
-    new ComandoLocal_1.CommandoLocal(),
-].forEach((comando) => programa.addCommand(comando.obtenha()));
-programa.parse(process.argv);
+import*as process from"node:process";import{CommanderError}from"commander";import{Comando}from"./Comando.js";import{ComandoNome}from"./ComandoNome.js";import{ComandoDoc}from"./ComandoDoc.js";import{ComandoData}from"./ComandoData.js";import{ComandoPessoa}from"./ComandoPessoa.js";import{ComandoLocal}from"./ComandoLocal.js";import{ComandoNúmero}from"./ComandoNúmero.js";import{ComandoTexto}from"./ComandoTexto.js";import{ComandoItem}from"./ComandoItem.js";import{carmesim}from"./Utilitários.js";const comando=new Comando().name("falseador").description("Gerador de dados por vezes brasileiros, aleatórios e verossímeis.").version("0.0.1").addCommand(new ComandoData).addCommand(new ComandoDoc).addCommand(new ComandoLocal).addCommand(new ComandoNome).addCommand(new ComandoNúmero).addCommand(new ComandoPessoa).addCommand(new ComandoTexto).addCommand(new ComandoItem);try{comando.parse(process.argv)}catch(e){if(e instanceof CommanderError){}else if(e instanceof Error){process.stderr.write(carmesim`erro: ${e.message}`)}else{process.stderr.write(carmesim`erro: Falha inesperada.`)}process.exit(2)}
+//# sourceMappingURL=index.js.map

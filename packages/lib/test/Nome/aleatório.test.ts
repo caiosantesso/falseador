@@ -1,6 +1,6 @@
 import { espaçoComoNúmero } from '../../../../jest.setup';
 import { falseador } from '../../src';
-import { ListaDeNomes } from '../../src/ListaDeNomes';
+import { ListaDeNomes } from '../../src/coleções/ListaDeNomes';
 
 const todosOsNomes = [...ListaDeNomes.M, ...ListaDeNomes.F];
 const nome = falseador.nome;

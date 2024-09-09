@@ -3,15 +3,17 @@ import { falseador } from '../src';
 
 const texto = falseador.texto;
 
-test('letra()', () => {
-  const letra = texto.letra();
-  expect(letra).toMatch(/[A-Z]/);
-});
+describe('letra()', () => {
+  test('letras do alfabeto', () => {
+    const letra = texto.letra();
+    expect(letra).toMatch(/[A-Z]/);
+  });
 
-test('letraAcentuada()', () => {
-  const letra = texto.letraAcentuada();
+  test('letras do alfabeto mais acentuadas', () => {
+    const letra = texto.letra(true);
 
-  expect(letra).toMatch(/[A-ZÀÁÂÃÇÉÊÍÓÔÕÚ]/);
+    expect(letra).toMatch(/[A-ZÀÁÂÃÇÉÊÍÓÔÕÚ]/);
+  });
 });
 
 describe('removeAcentos()', () => {
@@ -30,5 +32,19 @@ describe('removeAcentos()', () => {
 
   test('erro pois argumento não é string', () => {
     expect(() => texto.removeAcentos(zeroComoString)).toThrow();
+  });
+
+  test('erro pois argumento é nulo', () => {
+    expect(() => texto.removeAcentos(null)).toThrow();
+  });
+
+  test('erro pois argumento é indefinido', () => {
+    expect(() => texto.removeAcentos(undefined)).toThrow();
+  });
+
+  test('erro pois não há argumento', () => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
+    expect(() => texto.removeAcentos()).toThrow();
   });
 });

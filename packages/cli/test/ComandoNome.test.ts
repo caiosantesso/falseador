@@ -1,30 +1,91 @@
+import { MocksPadrão } from './MocksPadrão';
+
+const mocks = new MocksPadrão();
+
 const programa = '../src/index';
 const comando = ['', '', 'nome'];
-const info = jest.spyOn(console, 'info');
+
+beforeEach(jest.resetModules);
 
 describe('comando Nome', () => {
-  beforeEach(() => {
-    jest.resetModules();
-  });
+  const padrãoNome = /^[\p{sc=Latin} /-]{3,}$/u;
 
-  test('comando abreviado, nome completo', async () => {
+  test('apelido, subcomando padrão', async () => {
     process.argv = ['', '', 'n'];
     await import(programa);
 
-    expect(info.mock.lastCall?.[0]).toMatch(/^[\p{sc=Latin} /-]{7,}$/u);
+    const saída = mocks.textoDaÚltimaSaída();
+    expect(saída).toMatch(padrãoNome);
   });
 
   test('subcomando padrão nome completo', async () => {
     process.argv = comando;
     await import(programa);
 
-    expect(info.mock.lastCall?.[0]).toMatch(/^[\p{sc=Latin} /-]{7,}$/u);
+    const saída = mocks.textoDaÚltimaSaída();
+    expect(saída).toMatch(padrãoNome);
   });
 
-  test('subcomando primeiro nome', async () => {
-    process.argv = [...comando, 'primeiro'];
-    await import(programa);
+  describe.each([
+    ['completo', 'F', 'Z', ['F', 'M']],
+    ['primeiro', 'F', 'Z', ['F', 'M']],
+    ['composto', 'F', 'Z', ['F', 'M']],
+    ['sobrenomes', '5', 'Z', ['1', '2']],
+  ])('subcomando %s', (subcomando, argVálido, argInválido, args) => {
+    test('sem argumentos, sucesso', async () => {
+      process.argv = [...comando, subcomando];
+      await import(programa);
 
-    expect(info.mock.lastCall?.[0]).toMatch(/^[\p{sc=Latin} /-]{3,}$/u);
+      const saída = mocks.textoDaÚltimaSaída();
+      expect(saída).toMatch(padrãoNome);
+    });
+
+    test('[gênero] válido', async () => {
+      process.argv = [...comando, subcomando, argVálido];
+      await import(programa);
+
+      const saída = mocks.textoDaÚltimaSaída();
+      expect(saída).toMatch(padrãoNome);
+    });
+
+    test('[gênero] inválido', async () => {
+      process.argv = [...comando, subcomando, argInválido];
+      await import(programa);
+
+      mocks.espereArgumentoComVerificadorInválido(argInválido);
+    });
+
+    test('argumentos demasiados', async () => {
+      process.argv = [...comando, subcomando, ...args];
+      await import(programa);
+
+      mocks.espereArgumentosDemasiados(subcomando);
+    });
+  });
+
+  describe('subcomando abreviado', () => {
+    const subcomando = 'abreviado';
+
+    test('sem argumentos', async () => {
+      process.argv = [...comando, subcomando];
+      await import(programa);
+
+      mocks.espereArgumentoFaltante();
+    });
+
+    test('<nome> válido', async () => {
+      process.argv = [...comando, subcomando, 'Ângela Ivone David'];
+      await import(programa);
+
+      const saída = mocks.textoDaÚltimaSaída();
+      expect(saída).toEqual('Ângela I. David');
+    });
+
+    test('argumentos demasiados', async () => {
+      process.argv = [...comando, subcomando, 'X', 'Z'];
+      await import(programa);
+
+      mocks.espereArgumentosDemasiados(subcomando);
+    });
   });
 });

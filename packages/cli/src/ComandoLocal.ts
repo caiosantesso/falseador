@@ -1,29 +1,30 @@
-import { Argument, Command } from 'commander';
-import { falseador, UF } from 'falseador-lib';
+import { Argument } from 'commander';
+import { falseador, type UFSigla, util } from 'falseador-lib';
 import { Comando } from './Comando';
 
-export class CommandoLocal implements Comando {
-  readonly #argUF = new Argument(
-    '[uf]',
-    'Unidade Federativa ou nenhuma.',
-  ).choices(Object.keys(UF));
+export class ComandoLocal extends Comando {
+  public constructor() {
+    super('local');
 
-  public obtenha(): Command {
-    return new Command('local')
+    super
       .description('Obtém municípios.')
       .alias('l')
-      .addCommand(this.cidade(), { isDefault: true });
+      .addCommand(this.subcomandoCidade(), { isDefault: true });
   }
 
-  private cidade() {
-    return new Command('cidade')
+  private subcomandoCidade() {
+    const uf = new Argument('[uf]', 'Unidade Federativa').choices([
+      ...util.ufs.keys(),
+    ]);
+
+    return new Comando('cidade')
       .description('cidade brasileira.')
-      .addArgument(this.#argUF)
-      .option('--sem-sigla', 'remove UF após cidade.')
-      .action((uf: UF, opções: { semSigla?: boolean }) => {
+      .addArgument(uf)
+      .option('--sem-uf', 'remove UF após cidade.')
+      .action((uf: UFSigla, opções: { semUf?: boolean }) => {
         const local = falseador.local.cidade(uf);
-        const estado = `${opções.semSigla ? '' : ` - ${local[1]}`}`;
-        console.info(`${local[0]}${estado}`);
+        const estado = `${opções.semUf ? '' : ` - ${local[1]}`}`;
+        process.stdout.write(`${local[0]}${estado}`);
       });
   }
 }
