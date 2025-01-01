@@ -15,7 +15,7 @@ export class ComandoDoc extends Comando {
     return new Comando('cpf')
       .description('Cadastro de Pessoa Física.')
       .action(() => {
-        process.stdout.write(falseador.doc.cpf());
+        console.info(falseador.doc.cpf());
       });
   }
 
@@ -23,7 +23,7 @@ export class ComandoDoc extends Comando {
     return new Comando('cnpj')
       .description('Cadastro Nacional de Pessoa Jurídica.')
       .action(() => {
-        process.stdout.write(falseador.doc.cnpj());
+        console.info(falseador.doc.cnpj());
       });
   }
 }

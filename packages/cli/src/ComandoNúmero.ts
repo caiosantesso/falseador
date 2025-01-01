@@ -28,7 +28,7 @@ export class ComandoNúmero extends Comando {
       .option('--exclusivo', 'exclui limite superior.', false)
       .action((x: number, opções: { exclusivo: boolean }) => {
         const resultado = falseador.número.entreZeroE(x, !opções.exclusivo);
-        process.stdout.write(resultado.toString());
+        console.info(resultado.toString());
       });
   }
 
@@ -39,7 +39,7 @@ export class ComandoNúmero extends Comando {
       .option('--exclusivo', 'exclui limite superior.', false)
       .action((x: number, opções: { exclusivo: boolean }) => {
         const resultado = falseador.número.entreUmE(x, !opções.exclusivo);
-        process.stdout.write(resultado.toString());
+        console.info(resultado.toString());
       });
   }
 
@@ -52,7 +52,7 @@ export class ComandoNúmero extends Comando {
       .argument('z', 'Limite superior.', validaNúmeroInteiro)
       .action((y: number, z: number) => {
         const resultado = falseador.número.entre(y, z);
-        process.stdout.write(resultado.toString());
+        console.info(resultado.toString());
       });
   }
 
@@ -66,7 +66,7 @@ export class ComandoNúmero extends Comando {
       )
       .action((x: number) => {
         const resultado = falseador.número.romano(x);
-        process.stdout.write(resultado);
+        console.info(resultado);
       });
   }
 
@@ -81,7 +81,7 @@ export class ComandoNúmero extends Comando {
       )
       .action((x: number) => {
         const resultado = falseador.número.porExtenso(x);
-        process.stdout.write(resultado);
+        console.info(resultado);
       });
   }
 }

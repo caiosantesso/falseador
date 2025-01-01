@@ -1,6 +1,6 @@
 {
   "name": "@falseador/cli",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Cliente CLI para Falseador",
   "author": "Caio Santesso",
   "license": "MIT",

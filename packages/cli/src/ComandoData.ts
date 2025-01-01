@@ -42,7 +42,7 @@ export class ComandoData extends Comando {
           limiteSup,
         );
         const data = dataHora.toISOString().split('T')[0];
-        process.stdout.write(data);
+        console.info(data);
       });
   }
 }

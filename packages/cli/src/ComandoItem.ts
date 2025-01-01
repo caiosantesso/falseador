@@ -58,7 +58,7 @@ export class ComandoItem extends Comando {
 
           resultado += `${falseador.tipo.entre(itens)}`;
 
-          process.stdout.write(resultado);
+          console.info(resultado);
         },
       );
   }
@@ -80,7 +80,7 @@ export class ComandoItem extends Comando {
         const embaralhada = falseador.tipo.cópiaEmbaralhada(itens);
         const resultado = embaralhada.join(opções.separador);
 
-        process.stdout.write(resultado);
+        console.info(resultado);
       });
   }
 }

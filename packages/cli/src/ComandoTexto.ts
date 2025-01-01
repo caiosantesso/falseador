@@ -19,7 +19,7 @@ export class ComandoTexto extends Comando {
       .option('--acentuadas', 'inclui letras acentuadas.', false)
       .action((opções: { minúscula: boolean; acentuadas: boolean }) => {
         const maiúscula = falseador.texto.letra(opções.acentuadas);
-        process.stdout.write(
+        console.info(
           opções.minúscula ? maiúscula.toLocaleLowerCase('pt-BR') : maiúscula,
         );
       });
@@ -33,7 +33,7 @@ export class ComandoTexto extends Comando {
       )
       .argument('texto', 'texto a ter letras acentuadas substituídas.')
       .action((texto: string) => {
-        process.stdout.write(falseador.texto.removeAcentos(texto));
+        console.info(falseador.texto.removeAcentos(texto));
       });
   }
 }

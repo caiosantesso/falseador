@@ -30,7 +30,7 @@ export class ComandoPessoa extends Comando {
       .description('e-mail pessoal.')
       .argument('[nome]', 'Nome a derivar para endereço de e-mail.')
       .action((nome) => {
-        process.stdout.write(falseador.pessoa.email(nome));
+        console.info(falseador.pessoa.email(nome));
       });
   }
 
@@ -71,7 +71,7 @@ export class ComandoPessoa extends Comando {
           if (opções?.tabela) resultado = this.#monteTabela(pessoa);
           else resultado = JSON.stringify(pessoa);
 
-          process.stdout.write(resultado);
+          console.info(resultado);
         },
       );
   }

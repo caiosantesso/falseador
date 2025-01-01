@@ -22,7 +22,7 @@ export class ComandoNome extends Comando {
       .addArgument(gênero)
       .allowExcessArguments(false)
       .action((gênero) => {
-        process.stdout.write(falseador.nome.completo(gênero));
+        console.info(falseador.nome.completo(gênero));
       });
   }
 
@@ -32,7 +32,7 @@ export class ComandoNome extends Comando {
       .addArgument(gênero)
       .allowExcessArguments(false)
       .action((gênero) => {
-        process.stdout.write(falseador.nome.primeiro(gênero));
+        console.info(falseador.nome.primeiro(gênero));
       });
   }
 
@@ -42,7 +42,7 @@ export class ComandoNome extends Comando {
       .addArgument(gênero)
       .allowExcessArguments(false)
       .action((gênero) => {
-        process.stdout.write(falseador.nome.composto(gênero));
+        console.info(falseador.nome.composto(gênero));
       });
   }
 
@@ -56,7 +56,7 @@ export class ComandoNome extends Comando {
       )
       .allowExcessArguments(false)
       .action((num) => {
-        process.stdout.write(falseador.nome.sobrenomes(num));
+        console.info(falseador.nome.sobrenomes(num));
       });
   }
 
@@ -65,7 +65,7 @@ export class ComandoNome extends Comando {
       .description('Abrevia nomes.')
       .argument('nome', 'Nome a ser abreviado entre aspas.')
       .action((nome) => {
-        process.stdout.write(falseador.nome.abreviado(nome));
+        console.info(falseador.nome.abreviado(nome));
       });
   }
 }

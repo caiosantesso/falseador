@@ -24,7 +24,7 @@ export class ComandoLocal extends Comando {
       .action((uf: UFSigla, opções: { semUf?: boolean }) => {
         const local = falseador.local.cidade(uf);
         const estado = `${opções.semUf ? '' : ` - ${local[1]}`}`;
-        process.stdout.write(`${local[0]}${estado}`);
+        console.info(`${local[0]}${estado}`);
       });
   }
 }

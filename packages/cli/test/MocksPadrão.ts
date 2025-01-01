@@ -2,15 +2,18 @@ export class MocksPadrão {
   private readonly exit;
   private readonly stderr;
   private readonly stdout;
+  private readonly info;
 
   constructor() {
     this.exit = jest.spyOn(process, 'exit').mockImplementation();
     this.stderr = jest.spyOn(process.stderr, 'write').mockImplementation();
     this.stdout = jest.spyOn(process.stdout, 'write').mockImplementation();
+    this.info = jest.spyOn(console, 'info').mockImplementation();
   }
 
   public textoDaÚltimaSaída() {
-    return this.stdout.mock.lastCall?.[0] as string;
+    return (this.info.mock.lastCall?.[0] ??
+      this.stdout.mock.lastCall?.[0]) as string;
   }
 
   private espereErroContendo(texto: string) {
