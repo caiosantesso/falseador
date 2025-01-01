@@ -1,4 +1,4 @@
-import { falseador } from 'falseador-lib';
+import { falseador } from '@falseador/lib';
 import {
   validaNúmeroInteiro,
   validaNúmeroInteiroNãoNegativo,

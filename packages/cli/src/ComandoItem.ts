@@ -1,4 +1,4 @@
-import { falseador, util } from 'falseador-lib';
+import { falseador, util } from '@falseador/lib';
 import { Comando } from './Comando';
 import { validaOpçãoNúmeroInteiroPositivo } from './Utilitários';
 

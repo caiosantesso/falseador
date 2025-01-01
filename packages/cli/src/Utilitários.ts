@@ -1,4 +1,4 @@
-import { util } from 'falseador-lib';
+import { util } from '@falseador/lib';
 import { Argument, InvalidArgumentError } from 'commander';
 
 export function validaNúmeroInteiroNãoNegativo(valor: never): number {

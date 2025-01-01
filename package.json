@@ -15,7 +15,7 @@
     "test": "npm run --ws test",
     "preinstall": "npm run build && npm run typecheck",
     "prepare": "husky",
-    "cli": "npm run build && tsx packages/cli/src/index.ts",
+    "cli": "npm run build && node packages/cli/out/index.js",
     "install-locally": "npm run build && npm i -g packages/lib/. && npm i -g packages/cli/."
   },
   "workspaces": [

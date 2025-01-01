@@ -1,5 +1,5 @@
 import { Argument } from 'commander';
-import { falseador, type UFSigla, util } from 'falseador-lib';
+import { falseador, type UFSigla, util } from '@falseador/lib';
 import { Comando } from './Comando';
 
 export class ComandoLocal extends Comando {

@@ -1,5 +1,5 @@
 import { Option } from 'commander';
-import { falseador, type Gênero, type UFSigla } from 'falseador-lib';
+import { falseador, type Gênero, type UFSigla } from '@falseador/lib';
 
 import { gênero } from './Utilitários';
 import { Comando } from './Comando';
