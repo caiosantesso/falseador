@@ -1,0 +1,21 @@
+{
+  "name": "falseador",
+  "version": "0.0.1",
+  "description": "Cliente CLI para Falseador",
+  "author": "Caio Santesso",
+  "license": "MIT",
+  "private": true,
+  "type": "module",
+  "main": "index.ts",
+  "bin": "./out/index.js",
+  "typings": "./out/index.d.ts",
+  "scripts": {
+    "build": "rm -r out && swc --config-file ../../.swcrc --out-dir out src --strip-leading-paths",
+    "test": "jest",
+    "typecheck": "tsc"
+  },
+  "dependencies": {
+    "commander": "^12.1.0",
+    "falseador-lib": "file:../lib"
+  }
+}

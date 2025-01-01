@@ -1,0 +1,2 @@
+import{Falseador}from"./Falseador.js";import{ListaDeLocais}from"./coleções/ListaDeLocais.js";import{Validações}from"./integridade/Validações.js";import{Exceção}from"./integridade/Exceção.js";export const falseador=new Falseador;export const util={ufs:ListaDeLocais.ufs,númeroInteiroPositivoOuLançaErro:Validações.númeroInteiroPositivo,númeroInteiroNãoNegativoOuLançaErro:Validações.númeroInteiroNãoNegativo,númeroInteiroOuLançaErro:Validações.númeroInteiro,Exceção:Exceção};
+//# sourceMappingURL=index.js.map

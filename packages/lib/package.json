@@ -1,0 +1,24 @@
+{
+  "name": "falseador-lib",
+  "version": "0.0.1",
+  "description": "Biblioteca para gerar dados por vezes brasileiros, aleatórios e verossímeis.",
+  "author": "Caio Santesso",
+  "license": "MIT",
+  "private": true,
+  "type": "module",
+  "keywords": [
+    "fake data",
+    "random data"
+  ],
+  "main": "./out/index.js",
+  "typings": "./out/index.d.ts",
+  "files": [
+    "./out/*",
+    "README.adoc"
+  ],
+  "scripts": {
+    "test": "TS_JEST_DISABLE_VER_CHECKER=true jest",
+    "build": "rm -r out && swc --config-file ../../.swcrc --out-dir out src --strip-leading-paths",
+    "typecheck": "tsc"
+  }
+}

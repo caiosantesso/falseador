@@ -1,0 +1,2 @@
+import{falseador}from"falseador-lib";import{Comando}from"./Comando.js";export class ComandoDoc extends Comando{constructor(){super("doc");super.description("Gera números de documento.").alias("d").addCommand(this.cnpj()).addCommand(this.cpf())}cpf(){return new Comando("cpf").description("Cadastro de Pessoa Física.").action(()=>{process.stdout.write(falseador.doc.cpf())})}cnpj(){return new Comando("cnpj").description("Cadastro Nacional de Pessoa Jurídica.").action(()=>{process.stdout.write(falseador.doc.cnpj())})}}
+//# sourceMappingURL=ComandoDoc.js.map
